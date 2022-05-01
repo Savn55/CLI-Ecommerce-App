@@ -1,0 +1,3 @@
+username,password,fname,lname,cardName,cardNum,billAddr,billCity,billState,billZip,shipAddr,shipCity,shipState,shipZip
+sabin55,test123,sabin,bhujel,sabin,123123123.0,940 Jackson st,starkville,MS,39759.0,940Jackson,starkville,MS,39759.0
+flashsugar,test123,jeff,flash
