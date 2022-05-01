@@ -74,16 +74,19 @@ class Customer:
   def getCart(self):
     return self.cart
   
+  ## adding user to the csv file (customer.csv)
   def addUser(self, username,password):
     new_row = pd.Series({'userName':username,'password':password})
     self.customersInfo = self.customersInfo.append(new_row,ignore_index = True)
     self.customersInfo.to_csv(self.readFile, index = False)
 
+  ## verify if username is in the file
   def isUser(self):
     if self.userName in self.customersInfo['userName'].unique():
       return True
     return False
 
+  ## verify if password for username in the file is correct
   def checkPassword(self,username,password):
     uname = self.customersInfo.loc[self.customersInfo['userName'] == self.Username,'user'].iloc[0]
     pwd = self.customersInfo.loc[self.customersInfo['userName'] == self.Username,'password'].iloc[0]
@@ -91,19 +94,21 @@ class Customer:
       return True
     else:
       return False
-
+  
+  ## delete account of user with cart items too
   def deleteAccount(self,cart):
     self.customersInfo = self.customersInfo.drop(self.customersInfo[self.customersInfo['userName']==self.username].index)
     self.customersInfo.to_csv(self.readFile, index = False)
     print('Account is Deleted\n')
     exit()
-
+  
+  ## print account detais
   def printAccountDetails(self):
     df = (self.customersInfo.loc[self.customersInfo.index[self.customersInfo['user'] == self.Username]])
     print(df[['user', 'password', 'First', 'Last', 'StreetName', 'StreetNumber', 'City', 'State', 'Zip', 'CardName', 'CardNum',
      'BillingAddress', 'BillingCity', 'BillingState', 'BillingZip']])
 
-  
+  ## logout 
   def logout(self):
     exit()
 
