@@ -7,11 +7,10 @@
 # from Cart import Cart
 
 
-
 # verifying the user account
 
 print(" WELCOME TO THE BOOKSHOP \n")
-verify = False
+print("------- GROUP_26 ---------")
 while True:
     userName = input("UserName : ")
     
