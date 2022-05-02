@@ -61,12 +61,13 @@ class Customer:
     self.shippingCity = shippingCity
     self.shippingState = shippingState
     self.shippingZip = shippingZip
-    self.customersInfo.loc[self.customersInfo['userName'] == self.userName, 'shipAddr'] = shippingAddr
-    self.customersInfo.loc[self.customersInfo['userName'] == self.userName, 'shipCity'] = shippingCity
-    self.customersInfo.loc[self.customersInfo['userName'] == self.userName, 'shipState'] = shippingState
-    self.customersInfo.loc[self.customersInfo['userName'] == self.userName, 'shipZip'] = shippingZip
+    self.customersInfo.loc[self.customersInfo['username'] == self.userName, 'shipAddr'] = shippingAddr
+    self.customersInfo.loc[self.customersInfo['username'] == self.userName, 'shipCity'] = shippingCity
+    self.customersInfo.loc[self.customersInfo['username'] == self.userName, 'shipState'] = shippingState
+    self.customersInfo.loc[self.customersInfo['username'] == self.userName, 'shipZip'] = shippingZip
     self.customersInfo.to_csv(self.readFile, index = False)
-    print(self.customersInfo.loc[self.customersInfo['userName'] == self.userName])
+    print("Shipping Adress successfully set\n")
+    print(self.customersInfo.loc[self.customersInfo['username'] == self.userName])
     # prints the row (user account informations) with userName == userName
 
  
@@ -76,20 +77,20 @@ class Customer:
   
   ## adding user to the csv file (customer.csv)
   def addUser(self, username,password):
-    new_row = pd.Series({'userName':username,'password':password})
+    new_row = pd.Series({'username':username,'password':password})
     self.customersInfo = self.customersInfo.append(new_row,ignore_index = True)
     self.customersInfo.to_csv(self.readFile, index = False)
 
   ## verify if username is in the file
   def isUser(self):
-    if self.userName in self.customersInfo['userName'].unique():
+    if self.userName in self.customersInfo['username'].unique():
       return True
     return False
 
   ## verify if password for username in the file is correct
   def checkPassword(self,username,password):
-    uname = self.customersInfo.loc[self.customersInfo['userName'] == self.Username,'user'].iloc[0]
-    pwd = self.customersInfo.loc[self.customersInfo['userName'] == self.Username,'password'].iloc[0]
+    uname = self.customersInfo.loc[self.customersInfo['username'] == self.userName,'username'].iloc[0]
+    pwd = self.customersInfo.loc[self.customersInfo['username'] == self.userName,'password'].iloc[0]
     if uname == username and pwd == password:
       return True
     else:
@@ -97,16 +98,15 @@ class Customer:
   
   ## delete account of user with cart items too
   def deleteAccount(self,cart):
-    self.customersInfo = self.customersInfo.drop(self.customersInfo[self.customersInfo['userName']==self.username].index)
+    self.customersInfo = self.customersInfo.drop(self.customersInfo[self.customersInfo['username']==self.userName].index)
     self.customersInfo.to_csv(self.readFile, index = False)
     print('Account is Deleted\n')
     exit()
   
   ## print account detais
   def printAccountDetails(self):
-    df = (self.customersInfo.loc[self.customersInfo.index[self.customersInfo['user'] == self.Username]])
-    print(df[['user', 'password', 'First', 'Last', 'StreetName', 'StreetNumber', 'City', 'State', 'Zip', 'CardName', 'CardNum',
-     'BillingAddress', 'BillingCity', 'BillingState', 'BillingZip']])
+    df = (self.customersInfo.loc[self.customersInfo.index[self.customersInfo['username'] == self.userName]])
+    print(df[['username','password','fname','lname','cardName','cardNum','billAddr','billCity','billState','billZip','shipAddr','shipCity','shipState','shipZip']])
 
   ## logout 
   def logout(self):
