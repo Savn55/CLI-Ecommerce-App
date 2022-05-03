@@ -52,7 +52,7 @@ class Customer:
     self.customersInfo.loc[self.customersInfo['username'] == self.userName, 'billState'] = billingState
     self.customersInfo.loc[self.customersInfo['username'] == self.userName, 'billZip'] = billingZip
     self.customersInfo.to_csv(self.readFile, index = False)
-    print(self.customersInfo.loc[self.customersInfo['userName'] == self.userName]) 
+    print(self.customersInfo.loc[self.customersInfo['username'] == self.userName]) 
     # prints the row (user account informations) with userName == userName
 
 
@@ -66,7 +66,8 @@ class Customer:
     self.customersInfo.loc[self.customersInfo['username'] == self.userName, 'shipState'] = shippingState
     self.customersInfo.loc[self.customersInfo['username'] == self.userName, 'shipZip'] = shippingZip
     self.customersInfo.to_csv(self.readFile, index = False)
-    print("Shipping Adress successfully set\n")
+    print("\nShipping Adress successfully set\n")
+    print("****************************************")
     print(self.customersInfo.loc[self.customersInfo['username'] == self.userName])
     # prints the row (user account informations) with userName == userName
 
@@ -110,5 +111,6 @@ class Customer:
 
   ## logout 
   def logout(self):
+    print("\n----- LOGGED OUT -----\n")
     exit()
 

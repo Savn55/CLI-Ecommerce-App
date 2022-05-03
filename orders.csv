@@ -1,2 +1,4 @@
-userName,orderID,cardName,cardNum,billAddr,billCity,billState,billZip,ISBN,quantity,price,total
-sabin,0001,sabin,123123,101 Jackson,starkville,Ms,40009,a3333,10,20,200 
+ISBN,Quantity,billAddr,billCity,billState,billZip,cardName,cardNum,orderID,price,quantity,total,userName
+a555,,123mmd,sf,ms,123,mfas,123,E9UN,22.0,10.0,220.0,uzumaki
+a222,,123ms,sfasr,sf,123,msdf,123,HI36,12.0,10.0,120.0,uzumaki
+a333,,123 jackson,starkvil,ms,12313,sabin,123123123,YK8Z,15.0,10.0,150.0,savn
