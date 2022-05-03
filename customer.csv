@@ -1,6 +1,8 @@
-username,password,fname,lname,cardName,cardNum,billAddr,billCity,billState,billZip,shipAddr,shipCity,shipState,shipZip
-sabin55,test123,sabin,bhujel,sabin,123123123.0,940 Jackson st,starkville,MS,39759.0,940Jackson,starkville,MS,39759.0
-flashsugar,test123,jeff,flash,,,,,,,,,,
-Taylor,test123,taylor,taylor,,,,,,,,,,
-altron55,test123,altron,boss,,,,,,,,,,
-uzumaki,test123,naruto,uzumaki,,,,,,,321 library dr,starkville,ms,12345
+username,password,fname,lname,cardName,cardNum,billAddr,billCity,billState,billZip,shipAddr,shipCity,shipState,shipZip,billingAddr
+flashsugar,test123,jeff,flash,,,,,,,,,,,
+Taylor,test123,taylor,taylor,sfsdf,234.0,,ms,ms,123.0,,,,,123ms
+altron55,test123,altron,boss,,,,,,,,,,,
+uzumaki,test123,naruto,uzumaki,msdf,123.0,,sfasr,sf,123.0,321 library dr,starkville,ms,12345.0,123ms
+Taylor,test123,,,sfsdf,234.0,,ms,ms,123.0,,,,,123ms
+savn,test123,sabin,bhujel,sabin,123123123.0,,starkvil,ms,12313.0,123 jackson,starkville,ms,12345.0,123 jackson
+savn55,bhujel,sabin,bhujel,,,,,,,123 Jackson st,starkville,ms,39759,

@@ -33,4 +33,4 @@ class Inventory:
 
     print("************ Inventory List ***********\n")
     print(inventory_list)
-    
+
