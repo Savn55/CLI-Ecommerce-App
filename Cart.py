@@ -4,8 +4,6 @@ import random
 import pandas as pd
 from Inventory import Inventory
 from Book import Book
-
-
 class Cart:
   def __init__(self,username):
     self.userName = username
@@ -35,6 +33,7 @@ class Cart:
     
     return 0
 
+  #adds item from cart back to inventory
   
   def addBackToInventory(self, inventory):
     for i in range(len(self.cartItemList.index)):
@@ -52,14 +51,12 @@ class Cart:
     for i in range(len(self.cartItemList.index)):
       # ISBN = self.cartItemList.loc[i].ISBN
       quantity = int(self.cartItemList.loc[i]['Quantity'])
-      price = int(self.cartItemList.loc[i]['Price/item'])
+      price = int(self.cartItemList.loc[i]['Price'])
       total = quantity * price
       totalPrice = totalPrice + total  ## total price of cart items
-
-    print("Total Price: $ ", totalPrice)
-    
+    #Card Sequence and billing
     while True:
-      cardNum = input("\nEnter your Card Number: ")
+      cardNum = input("Enter your Card Number: ")
       if cardNum.isnumeric() == True:
         break
       else:
@@ -74,8 +71,8 @@ class Cart:
 
     for i in range(len(self.cartItemList.index)):
       ISBN = self.cartItemList.loc[i].ISBN
-      quantity = int(self.cartItemList.loc[i]['Quantity'])
-      price = int(self.cartItemList.loc[i]['Price/item'])
+      quantity = int(self.cartItemList.loc[i].Quantity)
+      price = int(self.cartItemList.loc[i].Price)
       total = quantity * price
       self.addOrder(cardName,cardNum,billAddr,billCity,billState,billZip,ISBN,quantity,price,total,orderID)
 
@@ -85,9 +82,7 @@ class Cart:
       customer.setPaymentInfo(cardName,cardNum,billAddr,billCity,billState,billZip)
     
     #self.goodList = pd.DataFrame(columns=['ISBN', 'Quantity'], dtype=object)
-    self.cartItemList = pd.DataFrame(columns=['ISBN', 'Quantity'], dtype=object)
     self.orderList.to_csv(self.orderFile, encoding='utf-8', index=False)
-    print("\n******** Checkout Successful *********")
 
   def addOrder(self,cardName,cardNum,billAddr,billCity,billState,billZip,ISBN,quantity,price,total,orderID):
     new_row = pd.Series({"userName":self.userName,"cardName":cardName,"cardNum":cardNum,"billAddr":billAddr,
@@ -115,11 +110,7 @@ class Cart:
   def printOrderHistory(self):
     if len(self.orderList)>0:
       print("\n*************************************** ORDER HISTORY *******************************")
-      print(self.orderList.loc[self.orderList.index[self.orderList['userName']==self.userName]])
+      print(self.orderList.loc[self.orderList['userName']==self.userName])
       print("\n*************************************************************************************")
     else:
       print("\n******************************** EMPTY ORDER HISTORY ********************************")
-
-
-# c = Cart('sabin')
-# c.printOrderHistory()

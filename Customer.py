@@ -37,7 +37,7 @@ class Customer:
     self.customersInfo.loc[self.customersInfo['username'] == self.userName,'fname'] = firstName
     self.customersInfo.loc[self.customersInfo['username'] == self.userName,'lname'] = lastName 
     self.customersInfo.to_csv(self.readFile, index = False)
-
+#Sets PaymentInfo and stores it in file
   def setPaymentInfo(self, cardName, cardNumber, billingAddr, billingCity, billingState, billingZip):
     self.cardName = cardName
     self.cardNumber = cardNumber
@@ -52,7 +52,7 @@ class Customer:
     self.customersInfo.loc[self.customersInfo['username'] == self.userName, 'billState'] = billingState
     self.customersInfo.loc[self.customersInfo['username'] == self.userName, 'billZip'] = billingZip
     self.customersInfo.to_csv(self.readFile, index = False)
-    print(self.customersInfo.loc[self.customersInfo['username'] == self.userName]) 
+    print(self.customersInfo.loc[self.customersInfo['userName'] == self.userName]) 
     # prints the row (user account informations) with userName == userName
 
 
@@ -66,8 +66,7 @@ class Customer:
     self.customersInfo.loc[self.customersInfo['username'] == self.userName, 'shipState'] = shippingState
     self.customersInfo.loc[self.customersInfo['username'] == self.userName, 'shipZip'] = shippingZip
     self.customersInfo.to_csv(self.readFile, index = False)
-    print("\nShipping Adress successfully set\n")
-    print("****************************************")
+    print("Shipping Adress successfully set\n")
     print(self.customersInfo.loc[self.customersInfo['username'] == self.userName])
     # prints the row (user account informations) with userName == userName
 
@@ -97,7 +96,7 @@ class Customer:
     else:
       return False
   
-  ## delete account of user with cart items too
+  ## delete account of user with cart items 
   def deleteAccount(self,cart):
     self.customersInfo = self.customersInfo.drop(self.customersInfo[self.customersInfo['username']==self.userName].index)
     self.customersInfo.to_csv(self.readFile, index = False)
@@ -111,6 +110,5 @@ class Customer:
 
   ## logout 
   def logout(self):
-    print("\n----- LOGGED OUT -----\n")
     exit()
 

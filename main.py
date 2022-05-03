@@ -4,32 +4,39 @@
 
 from Customer import Customer
 from Inventory import Inventory
-import Cart as cart
+from Cart import Cart
 
+
+   
+from os import system ,name
+def clear():
+    if name == 'nt':
+        _ = system('cls ')
+
+    else: 
+        _ = system('clear')
+
+
+# verifying the user account
 
 print("--------  WELCOME TO THE BOOKSHOP  ------- \n")
-print("---------------- GROUP_25 ----------------\n")
+print("---------------- GROUP_26 ----------------\n")
 while True:
     print("1. LogIn \n2. Create Account \n3. Exit Program\n ")
     selectMenu = input("Select an option. ")
     
-    ### select 1 to login
+    
     if selectMenu == '1':
         userName = input("UserName : ")
         password = input("Password : ")
         customer = Customer(userName)
-        # verifying the user account
         if customer.isUser()== True and customer.checkPassword(userName,password) == True:
             fName = customer.customersInfo.loc[customer.customersInfo['username'] == customer.userName, 'fname'].iloc[0]
             lName = customer.customersInfo.loc[customer.customersInfo['username'] == customer.userName, 'lname'].iloc[0]
             print(f"\n----- Welcome! {fName.upper()} {lName.upper()} --------")
             break
-        elif customer.isUser()== False or customer.checkPassword(userName,password) == False:
-            print("\nWrong UserName or Password, Try Again!\n")
         else:
-            print("\nCouldn't verify account. Create an account.\n")
-
-    ### select 2 to create account (new user)
+            print("\nWrong UserName or Password, Try Again!\n")
     elif selectMenu == '2':
         print("\nCreating an Account\n")
         userName = input("UserName : ")
@@ -54,8 +61,8 @@ while True:
             lastname = input("Enter your Last Name: ")
             customer.setName(firstname,lastname)
             
-            print("\nAccount Successfully Created.")
-            print("\nWELCOME ", firstname.upper(), lastname.upper())
+            print(" Account Successfully Created.")
+            print(" Welcome ", firstname.upper(), lastname.upper())
             print("\nEnter Shipping Address:")
             shipAddr = input("Enter Street Number and Name : ")
             shipCity = input("Enter the City : ")
@@ -64,50 +71,45 @@ while True:
             customer.setShippingAddress(shipAddr,shipCity,shipState,shipZip)
             break
 
-    ### select 3 to exit the program.        
     elif selectMenu == '3':
         exit()
     
-    ### any other input to loop back to menu options.
     else:
         print("Please select valid option.")
 
-### For new menu options
+
 if True:
     #### create inventory object ####
     inventory = Inventory()
+    #### create Cart object ####
+    cart = Cart(userName)
+    inventory.printInventory()
 
     while True:
         print("\nSelect Options Below")
         options = input("\n(A) Account Info \n(I) Inventory Info \n(C) Cart Info \n(L) Log Out\n")
 
-        ### second menu options
         if options.lower() == 'a':
             print("\n************* Account Information **************")
             editAccount = True
-            ### Account infos
             while editAccount:
                 print("\nACCOUNT OPTIONS:")
                 accMenu = input("(A) View Account Information \n(U) Update Account Information\n(P) Edit Payment Information\n(O) View Order History\n(D) Delete Account\n(B) Return Back\n")
                 
                 viewAccount = True
                 while viewAccount:
-                    ### Account Details
                     if accMenu.lower() == 'a':
                         customer.printAccountDetails()
                         viewAccount = False
-                    ### Update Acocunt Informations
+                    
                     elif accMenu.lower() == 'u':
-                        ### Sub Menu for update account
                         accSubMenu = input ("(N) Update Name \n(S) Edit Shipping Address\n(B) Account Menu\n")
-                        ### update name
                         if accSubMenu.lower() == 'n':
                             firstname = input("Update First Name: ")
                             lastname = input("Update Last Name: ")
                             customer.setName(firstname, lastname)
                             print("Account Updated Sucessfully.\n")  
                             viewAccount = False
-                        ### update shipping address    
                         elif accSubMenu.lower() == 's':
                             shipAddr = input("Enter Street Number and Name : ")
                             shipCity = input("Enter the City : ")
@@ -115,11 +117,9 @@ if True:
                             shipZip = input ("Enter the Zip: ")
                             customer.setShippingAddress(shipAddr,shipCity,shipState,shipZip)
                             viewAccount = False
-                        ### Return back to account menu  
                         elif accSubMenu.lower() == 'b':
                             viewAccount = False
-
-                    ### update payment informations    
+                        
                     elif accMenu.lower() == 'p':
                         print("\nUpdating Payment Information")
                         while True:
@@ -143,7 +143,7 @@ if True:
 
                     elif accMenu.lower() == 'd':
                         customer.deleteAccount(cart)
-                        # viewAccount = False
+                        viewAccount = False
 
                     elif accMenu.lower() == 'b':
                         viewAccount = False
@@ -161,52 +161,61 @@ if True:
         
         ## cart information selection
         elif options.lower() == 'c':
-            cart = customer.getCart()
+            Cart = customer.getCart()
             editCart = True
             while editCart:
-                cart.printCart()
+                Cart.printCart()
                 cartOption = input("\n1. Add to Cart\n2. View Cart\n3. View Inventory\n4. Delete Cart Item\n5. Checkout\n6. Return Back\n")
                 if cartOption.lower() == '1':
                     ISBN = input("\nEnter ISBN number :")
-                    quantity = int(input("\nItem Quantity :"))
+                    quantity = input("\nItem Quantity :")
 
                     if inventory.checkItemQuantity(ISBN, quantity):
-                        cart.addToCart(ISBN, quantity)
+                        Cart.AddToCart(ISBN, quantity)
                         inventory.delInventory(ISBN, quantity) ## reduce the quantity from inventory
                     else:
                         continue
 
-                if cartOption.lower() == '4':
-                    ISBN = input("\nEnter ISBN number to remove: ")
-                    quantity = cart.checkCart(ISBN) ### might check if already empty, cart.print
-                    inventory.addBackQuantity(ISBN,quantity) ### addQuantity
-                    cart.removeFromCart(ISBN)
-
                 elif cartOption.lower() == '2':
-                    cart.printCart()
+                    Cart.printCart()
 
                 elif cartOption.lower() == '3':
                     inventory.printInventory()
 
-               
+                elif cartOption.lower() == '4':
+                    ISBN = input("\nEnter ISBN number to remove: ")
+                    quantity = Cart.checkCart(ISBN) ### might check if already empty, cart.print
+                    inventory.addBackQuantity(ISBN,quantity) ### addQuantity
+                    Cart.removeFromCart(ISBN)
+
                 elif cartOption.lower() == '5':
-                    cart.checkout(inventory,customer)
-                    editCart = False
+                    Cart.checkout(inventory,customer)
+                    editCart = True
 
                 elif cartOption.lower() == '6':
-                    editCart = False
+                    editCart = True
                 
                 
 
         elif options.lower() == 'l':
-            cart = customer.getCart()
-            checkItems = cart.checkItems()
-            if not checkItems:
-                cart.addBackToInventory(inventory)
+            Cart = customer.getCart()
+            checkItems = Cart.checkItems()
+            if checkItems:
+                Cart.addBackToInventory(inventory)
             customer.logout()
 
 
 
 
-     
+        ## print inventory items
+        #inventory.printInventory()
+
+        
+
+    # creating Customer object here
+    # customer = Customer(userName)
+
+    ### (while creating account in customer class, add customer info to a csv file)
+    ### (have a function that checks if username is in customer info csv file)
+    # if userName is in customer.check_function ---> (in csv file):
         
